@@ -62,3 +62,10 @@ Object.keys(imageData).forEach(folder => {
 });
 
 window.addEventListener("load", showRandomAll);
+
+document.querySelectorAll('button').forEach(btn => {
+    btn.classList.add('btn');
+    btn.classList.add('btn-secondary');
+    btn.classList.add('btn-lg');
+    btn.classList.add('m-1');
+});
