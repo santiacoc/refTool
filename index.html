@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>refTool</title>
-    <link rel="stylesheet" href="css/styles.css">   
+  <title>refTool</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
 </head>
+
 <body>
-    <h1>refTool</h1>
+  <h1 class="text-center">refTool</h1>
 
 
 
-
-
-
-
-
-<div id="viewer">
-  <img id="imageViewer">
-</div>
-
-<div id="buttons">
-  <div id="buttons-inner">
-    <button id="prevBtn">Previous</button>
-    <button id="randomBtn">Random</button>
-    <!-- folder buttons go here -->
+  <div id="viewer" class="d-flex justify-content-center align-items-center" style="height: 85vh;">
+    <img id="imageViewer" class="img-fluid d-block mx-auto">
   </div>
-</div>
 
-<script src="js/data.js"></script>
-<script src="js/js.js"></script>
+  <div class="fixed-bottom mb-1 footer">
+    <div id="buttons" class="d-flex flex-wrap justify-content-center">
+      <button id="prevBtn">Previous</button>
+      <button id="randomBtn">Random</button>
+      <!-- folder buttons go here -->
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/js.js"></script>
 
 </body>
+
 </html>
