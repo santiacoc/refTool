@@ -15,12 +15,24 @@
 
 <div id="viewer" class="d-flex justify-content-center align-items-center" style="height: 80vh;">
   <img id="imageViewer" class="img-fluid d-block mx-auto" 
-        style="max-height: 75vh; max-width: 100vw;">
+        style="max-height: 75vh; max-width: 100vw; transition: opacity 0.5s ease-in-out">
 </div>
 
+<style>
+#imageViewer {
+    transition: opacity 1s ease-in-out;
+    opacity: 1;
+    max-height: 80vh;
+    max-width: 90vw;
+    object-fit: contain;
+}
 
+#imageViewer.fade-out {
+    opacity: 0;
+}
+</style>
 
-  <div class="fixed-bottom mb-1 footer">
+  <div class="fixed-bottom mb-5 footer">
     <div id="buttons" class="d-flex flex-wrap justify-content-center">
       <button id="prevBtn">Previous</button>
       <button id="randomBtn">Random</button>
