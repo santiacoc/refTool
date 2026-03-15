@@ -5,19 +5,26 @@ const randomBtn = document.getElementById("randomBtn");
 
 let history = [];
 let currentIndex = -1;
+let lastShownPath = null; // Track last shown image
 
 // Add transition styles to viewer
-viewer.style.transition = 'opacity 0.5s ease-in-out';
-viewer.style.opacity = '1'; // ensure it starts visible
-
 function showImage(path) {
-    // Fade out
-    viewer.style.opacity = '0';
+    viewer.classList.add('fade-out');
     
-    // Wait for fade-out, then change src and fade in
     setTimeout(() => {
         viewer.src = path;
-        viewer.style.opacity = '1';
+        lastShownPath = path; // Update last shown
+        
+        // Wait for image to load before fading in
+        viewer.onload = () => {
+            viewer.classList.remove('fade-out');
+            viewer.onload = null;
+        };
+        
+        viewer.onerror = () => {
+            viewer.classList.remove('fade-out');
+            viewer.onerror = null;
+        };
     }, 500);
 }
 
@@ -30,21 +37,39 @@ function pushHistory(path) {
 
 function showRandom(folder) {
     const images = imageData[folder];
-    const randomIndex = Math.floor(Math.random() * images.length);
-    const image = images[randomIndex];
-
-    const path = `imgs/${folder}/${image}`;
+    let randomIndex;
+    let image;
+    let path;
+    
+    // Pick a random image, but not the same as last shown
+    do {
+        randomIndex = Math.floor(Math.random() * images.length);
+        image = images[randomIndex];
+        path = `imgs/${folder}/${image}`;
+    } while (path === lastShownPath && images.length > 1);
+    
     pushHistory(path);
 }
 
 function showRandomAll() {
     const folders = Object.keys(imageData);
-    const folder = folders[Math.floor(Math.random() * folders.length)];
-
-    const images = imageData[folder];
-    const image = images[Math.floor(Math.random() * images.length)];
-
-    const path = `imgs/${folder}/${image}`;
+    let folder;
+    let images;
+    let image;
+    let path;
+    
+    // Pick random folder
+    do {
+        folder = folders[Math.floor(Math.random() * folders.length)];
+        images = imageData[folder];
+        
+        // Pick random image from that folder
+        do {
+            image = images[Math.floor(Math.random() * images.length)];
+            path = `imgs/${folder}/${image}`;
+        } while (path === lastShownPath && images.length > 1);
+    } while (path === lastShownPath && folders.length > 1);
+    
     pushHistory(path);
 }
 
@@ -79,6 +104,6 @@ document.querySelectorAll('button').forEach(btn => {
     btn.classList.add('m-1');
     btn.classList.add('px-4');
     btn.classList.add('py-3');
-    btn.style.fontSize = '1.2rem';
+    btn.style.fontSize = '1.8rem';
     btn.style.minWidth = '120px';
 });
