@@ -6,8 +6,19 @@ const randomBtn = document.getElementById("randomBtn");
 let history = [];
 let currentIndex = -1;
 
+// Add transition styles to viewer
+viewer.style.transition = 'opacity 0.5s ease-in-out';
+viewer.style.opacity = '1'; // ensure it starts visible
+
 function showImage(path) {
-    viewer.src = path;
+    // Fade out
+    viewer.style.opacity = '0';
+    
+    // Wait for fade-out, then change src and fade in
+    setTimeout(() => {
+        viewer.src = path;
+        viewer.style.opacity = '1';
+    }, 500);
 }
 
 function pushHistory(path) {
@@ -49,7 +60,6 @@ randomBtn.onclick = () => {
 };
 
 Object.keys(imageData).forEach(folder => {
-
     const btn = document.createElement("button");
     btn.textContent = folder;
 
@@ -58,14 +68,17 @@ Object.keys(imageData).forEach(folder => {
     };
 
     container.appendChild(btn);
-
 });
 
 window.addEventListener("load", showRandomAll);
 
 document.querySelectorAll('button').forEach(btn => {
     btn.classList.add('btn');
-    btn.classList.add('btn-secondary');
+    btn.classList.add('btn-light');
     btn.classList.add('btn-lg');
     btn.classList.add('m-1');
+    btn.classList.add('px-4');
+    btn.classList.add('py-3');
+    btn.style.fontSize = '1.2rem';
+    btn.style.minWidth = '120px';
 });
